@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 // Controller
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,20 +21,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/laporan', [PeminjamanController::class, 'index']);
+Route::get('/admin/laporan', [PeminjamanController::class, 'index'])->name('admin.laporan');
+Route::post('/admin/laporan/', [PeminjamanController::class, 'search'])->name('search');
 
-Route::post('/admin/laporan/search', [PeminjamanController::class, 'search'])->name('search');
+// Login
+Route::get('/register', fn () => view('register', ["title" => "Register"]))->name('register');
 
-Route::get('/register', function () {
-    return view('register');
-})->name('register');
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');
 
-Route::get('/login', function () {
-    return view('login');
-})->name('login');
+Route::get('/pjmk', fn () => view('user.index', ["title" => "Dashboard"]))->name('pjmk.index');
 
-Route::get('/pjmk', function () {
-    return view('user.index');
-})->name('pjmk.index');
+Route::get('/peminjaman', fn () => view('user.peminjaman', ["title" => "Peminjaman"]))->name('pjmk.pinjam');
 
-Route::get('/test', [PeminjamanController::class, 'index']);
+Route::get('/peminjaman/create', fn () => view('user.create-peminjaman', ["title" => "Peminjaman"]))->name('pjmk.pinjam.create');
+
+
+// Route::get('/test', [LoginController::class, 'authenticate']);
