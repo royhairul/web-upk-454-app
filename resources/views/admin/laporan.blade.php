@@ -77,18 +77,10 @@
           </div>
 
           <!-- menu item -->
-          <!-- <div>
-            <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-              <a href="javascript:;"
-                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Settings</a>
-            </span>
-          </div> -->
-
-          <!-- menu item -->
           <div>
             <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
               <a href="javascript:;"
-                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Users</a>
+                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Peminjaman</a>
             </span>
           </div>
 
@@ -97,7 +89,7 @@
           <div>
             <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
               <a href="javascript:;"
-                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Orders</a>
+                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Pengembalian</a>
             </span>
           </div>
 
@@ -105,8 +97,7 @@
           <div>
             <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
               <a href="javascript:;"
-                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Track
-                Order</a>
+                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Jadwal</a>
             </span>
           </div>
 
@@ -114,7 +105,7 @@
           <div>
             <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
               <a href="javascript:;"
-                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Products</a>
+                class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Inventaris</a>
             </span>
           </div>
 
@@ -170,7 +161,7 @@
                   </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-slate-800">
-                  @foreach ($list_peminjaman as $peminjaman)
+                  @foreach ($data as $peminjaman)
                   <tr>
                     <td
                       class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
@@ -185,7 +176,6 @@
                     </td>
                     <td
                       class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-                      The
                       {{ $peminjaman->matakuliah_nama }}
                     </td>
                   </tr>
