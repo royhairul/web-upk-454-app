@@ -25,10 +25,16 @@ Route::get('/', function () {
 Route::get('/admin/laporan', [PeminjamanController::class, 'index'])->name('admin.laporan');
 Route::post('/admin/laporan', [PeminjamanController::class, 'search'])->name('search');
 
-// Login
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+// Register
+Route::get('/register', [RegisterController::class, 'showPersonalForm'])->name('register');
+Route::post('/register', [RegisterController::class, 'validatePersonal'])->name('register.personal.store');
 
+Route::get('/register/account', [RegisterController::class, 'showAccountForm'])->name('register.account');
+Route::post('/register/account', [RegisterController::class, 'validateAccount'])->name('register.account.store');
+
+Route::get('/register/confirmation', [RegisterController::class, 'confirm'])->name('register.confirm');
+
+// Login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');
 
