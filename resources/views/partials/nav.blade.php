@@ -1,9 +1,9 @@
 <aside
   class="relative group/sidebar flex flex-col shrink-0 lg:w-[300px] w-[250px] transition-all duration-300 ease-in-out m-0 fixed z-40 inset-y-0 left-0 bg-white border-r border-r-dashed border-r-neutral-200 sidenav fixed-start"
   id="sidenav-main">
-  <div class="flex shrink-0 px-8 items-center justify-between h-[96px]">
+  <div class=" flex shrink-0 p-8 items-center justify-between">
     <a class="transition-colors duration-200 ease-in-out" href="#">
-      <img alt="Logo" src="{{ asset('logo-UPK.svg') }}" class="inline">
+      <img alt="Logo" src="{{ asset('logo-UPK.svg') }}" class="inline h-[40px]">
     </a>
   </div>
 
@@ -49,7 +49,7 @@
       <div>
         <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
           <a href="javascript:;"
-            class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Dashboard</a>
+            class="flex items-center flex-grow text-base dark:text-neutral-400/75 hover:text-dark {{ $title == 'Dashboard' ? 'font-semibold text-dark-500' : 'text-stone-500'}}">Dashboard</a>
         </span>
       </div>
 
@@ -57,7 +57,7 @@
       <div>
         <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
           <a href="javascript:;"
-            class="flex items-center flex-grow text-base dark:text-neutral-400/75 font-semibold text-dark-500 hover:text-dark">Laporan</a>
+            class="flex items-center flex-grow text-base dark:text-neutral-400/75 hover:text-dark {{ $title == 'Laporan' ? 'font-semibold text-dark-500' : 'text-stone-500'}}">Laporan</a>
         </span>
       </div>
 
@@ -65,7 +65,7 @@
       <div>
         <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
           <a href="javascript:;"
-            class="flex items-center flex-grow text-base dark:text-neutral-400/75 text-stone-500 hover:text-dark">Peminjaman</a>
+            class="flex items-center flex-grow text-base dark:text-neutral-400/75 hover:text-dark {{ $title == 'Peminjaman' ? 'font-semibold text-dark-500' : 'text-stone-500'}}">Peminjaman</a>
         </span>
       </div>
 

@@ -65,7 +65,8 @@
 		</aside>
 		<!-- End Sidebar -->
 		<div class="p-8">
-			<form action="" method="POST">
+			<form action="{{ route('register.store') }}" method="POST">
+				@csrf
 				<div id="personal-form">
 					<h2 class="mt-10 text-2xl font-bold leading-9 tracking-tight text-gray-900 ">Personal Info</h2>
 					<p class="text-base leading-9 tracking-tight text-gray-400">
@@ -87,50 +88,50 @@
 						</div>
 
 						<div class="row-span-1 order-3">
-							<label for="nama" class="block text-sm font-medium leading-6 text-gray-900">Nama</label>
+							<label for="pjmk_nama" class="block text-sm font-medium leading-6 text-gray-900">Nama</label>
 							<div class="mt-2">
-								<input type="text" name="nama" id="nama" autocomplete="given-name"
+								<input type="text" name="pjmk_nama" id="pjmk_nama" autocomplete="given-name"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>
 
 						<div class="row-span-1 order-2">
-							<label for="nim" class="block text-sm font-medium leading-6 text-gray-900">NIM (Nomor Induk
+							<label for="pjmk_nim" class="block text-sm font-medium leading-6 text-gray-900">NIM (Nomor Induk
 								Mahasiswa)</label>
 							<div class="mt-2">
-								<input type="text" name="nim" id="nim" autocomplete="given-name"
+								<input type="text" name="pjmk_nim" id="pjmk_nim" autocomplete="given-name"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>
 
 						<div class="row-span-1 order-4">
-							<label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Kelas</label>
+							<label for="pjmk_kelas" class="block text-sm font-medium leading-6 text-gray-900">Kelas</label>
 							<div class="mt-2">
-								<input type="phone" name="phone" id="phone" autocomplete="given-name"
+								<input type="text" name="pjmk_kelas" id="pjmk_kelas" autocomplete="given-name"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>
 
 						<div class="row-span-1 order-5">
-							<label for="phone" class="block text-sm font-medium leading-6 text-gray-900">Nomor HP</label>
+							<label for="pjmk_phone" class="block text-sm font-medium leading-6 text-gray-900">Nomor HP</label>
 							<div class="mt-2">
-								<input type="phone" name="phone" id="phone" autocomplete="given-name"
+								<input type="phone" name="pjmk_phone" id="pjmk_phone" autocomplete="given-name"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>
 
 						<div class="row-span-1 order-6">
-							<label for="email" class="block text-sm font-medium leading-6 text-gray-900">Alamat Email</label>
+							<label for="pjmk_email" class="block text-sm font-medium leading-6 text-gray-900">Alamat Email</label>
 							<div class="mt-2">
-								<input id="email" name="email" type="email" autocomplete="email"
+								<input id="email" name="pjmk_email" type="pjmk_email" autocomplete="email"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>
 
 						<div class="row-span-1 order-5">
-							<label for="prodi" class="block text-sm font-medium leading-6 text-gray-900">Program Studi</label>
+							<label for="pjmk_prodi" class="block text-sm font-medium leading-6 text-gray-900">Program Studi</label>
 							<div class="mt-2">
-								<select id="prodi" name="prodi" autocomplete="prodi"
+								<select id="prodi" name="pjmk_prodi" autocomplete="prodi"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:max-w-xs sm:text-sm sm:leading-6">
 									<option selected default>Pilih Program Studi...</option>
 									<option>TRPL - Teknologi Rekayasa Perangkat Lunak</option>
@@ -156,16 +157,16 @@
 					</p>
 					<div class="w-full mt-5 mx-auto grid grid-cols-1 gap-y-5">
 						<div class="row-span-1 order-6">
-							<label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+							<label for="pjmk_username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
 							<div class="mt-2">
-								<input id="username" name="username" type="username" autocomplete="username"
+								<input id="pjmk_username" name="pjmk_username" type="username" autocomplete="username"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>
 						<div class="row-span-1 order-6">
-							<label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+							<label for="pjmk_password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
 							<div class="mt-2">
-								<input id="password" name="password" type="password" autocomplete="password"
+								<input id="pjmk_password" name="pjmk_password" type="password" autocomplete="password"
 									class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
 							</div>
 						</div>

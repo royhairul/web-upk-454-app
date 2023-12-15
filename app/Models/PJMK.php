@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class PJMK extends Model
+class PJMK extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'tb_pjmk';
     protected $primaryKey = "pjmk_nim";
@@ -19,6 +21,5 @@ class PJMK extends Model
         'pjmk_phone',
         'pjmk_email',
         'pjmk_img',
-        'pjmk_password',
     ];
 }

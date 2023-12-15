@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // Controller
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,11 @@ Route::get('/', function () {
 });
 
 Route::get('/admin/laporan', [PeminjamanController::class, 'index'])->name('admin.laporan');
-Route::post('/admin/laporan/', [PeminjamanController::class, 'search'])->name('search');
+Route::post('/admin/laporan', [PeminjamanController::class, 'search'])->name('search');
 
 // Login
-Route::get('/register', fn () => view('register', ["title" => "Register"]))->name('register');
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login.auth');

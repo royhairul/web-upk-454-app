@@ -18,6 +18,7 @@ class Peminjaman extends Model
             'peminjaman_matakuliah',
             'peminjaman_admin',
             'peminjaman_fasilitas',
-            'peminjaman_waktu',
+            'peminjaman_waktu_mulai',
+            'peminjaman_waktu_selesai',
     ];
 }

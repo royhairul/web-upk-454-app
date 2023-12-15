@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('peminjaman_matakuliah');
             $table->string('peminjaman_admin')->nullable();
             $table->integer('peminjaman_fasilitas')->nullable();
-            $table->dateTimeTz('peminjaman_waktu');
+            $table->date('peminjaman_tanggal');
+            $table->time('peminjaman_waktu_mulai');
+            $table->time('peminjaman_waktu_selesai');
             $table->timestamps();
         });
     }

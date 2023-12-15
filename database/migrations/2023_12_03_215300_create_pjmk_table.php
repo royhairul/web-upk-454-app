@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('pjmk_phone');
             $table->string('pjmk_email');
             $table->string('pjmk_img')->nullable();
-            $table->string('pjmk_password');
             $table->timestamps();
         });
     }
