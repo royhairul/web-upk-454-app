@@ -24,7 +24,7 @@
           @csrf
           <input type="text" name="search" id="search"
             class="rounded-md w-[50ch] border-0 py-2.5 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            placeholder="Masukkan Kata Kunci">
+            placeholder="Cari berdasarkan Nama atau Kelas PJMK">
           <button type="submit"
             class="flex cursor-pointer rounded-md bg-indigo-600 px-2.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
             <span class="material-symbols-rounded">
