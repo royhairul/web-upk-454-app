@@ -16,17 +16,12 @@ class LoginController extends Controller
 
     public function authenticate(Request $request): RedirectResponse
     {
-
-        $inputValue = $request->all();
-        $request->validate([
-            'pjmk_nim' => 'required',
-            'pjmk_password' => 'required',
+        $validatedData = $request->validate([
+            'username' => 'required',
+            'password' => 'required',
         ]);
 
-        if (Auth::guard('pjmk')->attempt([
-            'pjmk_nim' => $inputValue['pjmk_nim'],
-            'pjmk_password' => $inputValue['pjmk_password']
-        ]))
+        if (Auth::attempt($validatedData))
         {
             $request->session()->regenerate();
 
@@ -34,7 +29,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'pjmk_nim' => 'Username yang anda input tidak ada.',
-        ])->onlyInput('pjmk_nim');
+            'username' => 'Username yang anda input tidak ada.',
+        ])->onlyInput('username');
     }
 }
