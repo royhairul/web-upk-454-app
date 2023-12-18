@@ -12,13 +12,12 @@ class Peminjaman extends Model
     protected $table = "tb_peminjaman";
     protected $primaryKey = 'peminjaman_id';
     protected $fillable = [
-            'peminjaman_id',
             'peminjaman_pjmk',
             'peminjaman_ruangkelas',
             'peminjaman_matakuliah',
-            'peminjaman_admin',
             'peminjaman_fasilitas',
+            'peminjaman_tanggal',
             'peminjaman_waktu_mulai',
-            'peminjaman_waktu_selesai',
+            'peminjaman_waktu_selesai'
     ];
 }

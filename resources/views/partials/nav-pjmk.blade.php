@@ -1,9 +1,9 @@
 <nav>
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-full px-8">
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
         <div class="flex-shrink-0">
-          <img class="h-8 w-auto" src="{{ asset('logo-UPK.svg') }}" alt="Your Company">
+          <img class="h-8 w-auto" src="{{ asset('logo-UPK.svg') }}" alt="UPK Poliwangi">
         </div>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
