@@ -1,3 +1,8 @@
+@extends('layouts.register')
+
+@section('title', 'Register Account')
+
+@section('main-content')
 <form action="{{ route('register.account.store') }}" method="post">
   @csrf
   <div id="account-form">
@@ -10,14 +15,14 @@
       <div class="row-span-1 order-6">
         <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
         <div class="mt-2">
-          <input id="username" name="username" type="username" autocomplete="username" required value="{{ old('username') }}"
+          <input id="username" name="username" type="username" required
             class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
         </div>
       </div>
       <div class="row-span-1 order-6">
         <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
         <div class="mt-2">
-          <input id="password" name="password" type="password" autocomplete="password" required
+          <input id="password" name="password" type="password" required
             class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6 @error('password') ring-rose-500  @enderror">
             @error('password')
             <p class="absolute text-sm text-rose-500">{{ $message }}</p>
@@ -39,3 +44,4 @@
     </div>
   </div>
 </form>
+@endsection

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\MessageBag;
+use App\Models\Prodi;
 use App\Models\PJMK;
 use App\Models\User;
 
@@ -15,19 +15,28 @@ class RegisterController extends Controller
      */
     public function showPersonalForm()
     {
+        // Mengambil data prodi
+        $prodi = Prodi::all();
+
         // Menampilkan Formulir untuk Personal Data
-        return view("register", ["page" => "register-personal"]);
+        return view("register.register-personal", [
+            "page" => "register-personal",
+            "prodi" => $prodi
+        ]);
     }
 
     public function showAccountForm()
     {
         // Menampilkan Formulir untuk Account Data
-        return view("register", ["page" => "register-account"]);
+        return view("register.register-account", ["page" => "register-account"]);
     }
 
-    public function showConfirmation($isCreated)
+    public function showConfirmation($isCreated = null)
     {
-        return view('register', [
+        if($isCreated == null) {
+            return redirect()->route('register');
+        }
+        return view('register.register-confirm', [
             "page" => "register-confirm",
             "isCreated" => $isCreated
         ]);
@@ -92,8 +101,6 @@ class RegisterController extends Controller
             'username' => 'required',
             'password' => 'required|confirmed'
         ], $customMessages);
-
-
         
         // Jika validasi Gagal
         if(!$validateDataAccount) {

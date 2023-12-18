@@ -19,10 +19,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            PJMKSeeder::class,
+            ProdiSeeder::class,
             MataKuliahSeeder::class,
             RuangKelasSeeder::class,
-            PeminjamanSeeder::class
         ]);
     }
 }

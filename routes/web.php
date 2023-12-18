@@ -31,7 +31,7 @@ Route::get('/register', [RegisterController::class, 'showPersonalForm'])->name('
 Route::post('/register', [RegisterController::class, 'validatePersonal'])->name('register.personal.store');
 Route::get('/register/account', [RegisterController::class, 'showAccountForm'])->name('register.account');
 Route::post('/register/account', [RegisterController::class, 'validateAccount'])->name('register.account.store');
-Route::get('/register/confirmation', [RegisterController::class, 'confirm'])->name('register.confirm');
+Route::get('/register/confirmation', [RegisterController::class, 'showConfirmation'])->name('register.confirm');
 
 // Login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
