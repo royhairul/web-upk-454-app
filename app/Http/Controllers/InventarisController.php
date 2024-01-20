@@ -10,12 +10,6 @@ class InventarisController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $fasilitas = Fasilitas::all();
-        return view('admin.inventaris.index', compact('fasilitas'));
-    }
-
     public function index(Request $data)
     {
         $search = $data->get('search');
@@ -26,7 +20,6 @@ class InventarisController extends Controller
             ->get();
         return view('admin.inventaris.index', compact('fasilitas'));
     }
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
     /**
      * Show the form for creating a new resource.
      */
