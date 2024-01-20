@@ -11,6 +11,10 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+<<<<<<< HEAD
+=======
+        "livewire/livewire": "^3.3",
+>>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
         "spatie/laravel-permission": "^6.2"
     },
     "require-dev": {

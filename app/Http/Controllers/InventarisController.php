@@ -16,6 +16,17 @@ class InventarisController extends Controller
         return view('admin.inventaris.index', compact('fasilitas'));
     }
 
+    public function index(Request $data)
+    {
+        $search = $data->get('search');
+        $fasilitas = Fasilitas::where('fasilitas_code', 'like', '%' . $search . '%')
+            ->orWhere('fasilitas_name', 'like', '%' . $search . '%')
+            ->orWhere('fasilitas_type', 'like', '%' . $search . '%')
+            ->orWhere('fasilitas_status', 'like', '%' . $search . '%')
+            ->get();
+        return view('admin.inventaris.index', compact('fasilitas'));
+    }
+>>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
     /**
      * Show the form for creating a new resource.
      */

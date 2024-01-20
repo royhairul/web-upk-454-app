@@ -26,6 +26,9 @@ use App\Http\Controllers\Api\PjmkController;
 Route::post('/register/personal', [ApiRegisterController::class,'validatePersonal']);
 Route::post('/register/account', [ApiRegisterController::class,'validateAccount']);
 Route::post('/register', [ApiRegisterController::class, 'register']);
+Route::post('/register/personal', [ApiRegisterController::class,'validatePersonal']);
+Route::post('/register/account', [ApiRegisterController::class,'validateAccount']);
+Route::post('/register', [ApiRegisterController::class, 'register']);
 
 Route::post('/login', [ApiLoginController::class, 'authenticate']);
 

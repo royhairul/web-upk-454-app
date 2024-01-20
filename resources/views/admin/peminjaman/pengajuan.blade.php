@@ -8,6 +8,30 @@
   Daftar Pengajuan Peminjaman
 </p>
 
+<<<<<<< HEAD
+=======
+<form action="/admin/pengajuan" method="get" class="mt-10 flex gap-4">
+  @csrf
+  <input type="text" name="search" id="search"
+    class="rounded-md w-[50ch] border-0 py-2.5 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+    placeholder="Cari berdasarkan Ruangan">
+  <button type="submit"
+    class="flex cursor-pointer rounded-md bg-indigo-600 px-2.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+    <span class="material-symbols-rounded">
+      search
+    </span>
+  </button>
+
+  <!-- <button type="button" id="filterButton"
+    class="flex gap-x-2 justify-center align-center cursor-pointer rounded-md bg-indigo-600 px-3 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+    <span class="material-symbols-rounded">
+      filter_list
+    </span>
+    <span class="text-base">Filter</span>
+  </button> -->
+</form>
+
+>>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
 <!-- Table -->
 <div class="mt-10 relative bg-slate-50 rounded-xl overflow-hidden">
   <div style="background-position: 10px 10px;"
