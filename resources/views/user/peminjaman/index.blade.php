@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+  @php
+  setlocale(LC_ALL, 'Indonesian'); // Set locale ke bahasa Indonesia
+  @endphp
 
 <head>
   <meta charset="UTF-8">
@@ -12,57 +15,83 @@
 
 <body class="bg-gray-100">
   <div class="container max-w-full min-h-full">
-    @include('partials.nav-pjmk', ['title' => 'Peminjaman'])
+    @include('component.nav-pjmk', ['title' => 'Peminjaman', 'user' => $user])
 
     <div class="p-8 w-full">
-      <header class="flex gap-x-20 align-center">
+      <header class="flex gap-x-40 align-center">
         <div>
-          <h2 class="text-2xl font-bold">Peminjaman</h2>
-          <p class="text-base text-gray-600">Peminjaman yang anda ajukan</p>
+          <h2 class="text-2xl font-semibold leading-8">Peminjaman</h2>
+          <p class="text-sm text-gray-500">Peminjaman yang anda ajukan</p>
         </div>
 
         <a href="{{ route('pjmk.pinjam.create') }}"
-          class="rounded-md bg-cyan-500 h-max px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-cyan-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600">Buat
-          Pengajuan</a>
+          class="rounded-md bg-cyan-500 h-max px-5 py-3 font-semibold text-white shadow-lg shadow-cyan-100 hover:bg-cyan-600
+                  flex gap-x-4 justify-center align-center">
+          <span class="material-symbols-outlined">assignment_add</span>
+          <span>Buat Pengajuan</span>
+        </a>
       </header>
       <main class="mt-5">
-        <ul role="list" class="flex flex-col divide-y-2 divide-gray-200 divide-dotted">
-          <li class="flex justify-between gap-x-6 p-3 group hover:bg-gray-200 transition-colors duration-400 cursor-pointer">
-            <div class="flex min-w-0 gap-x-4">
-              <div class="min-w-0 flex-auto">
-                <p class="text-sm font-bold leading-6 text-gray-900">C2.01</p>
-                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Model dan Metode Pengembangan Perangkat Lunak
-                </p>
-                <p class="mt-1 truncate text-xs leading-5 text-gray-500">9:00 s/d 10:00</p>
+        <ul role="list" class="flex flex-col divide-y-2 divide-gray-200 gap-4 divide-dotted bg-white p-5 rounded-md">
+          @foreach ($peminjaman as $p)
+          <a href="{{ route('pjmk.pinjam.detail', $p->peminjaman_id) }}">
+          <li class="flex justify-between gap-x-6 p-3 group hover:bg-gray-100 transition-colors duration-300 cursor-pointer">
+              <div class="flex min-w-0 gap-x-4">
+                <div class="min-w-0 flex-auto">
+                  <p class="text-lg font-extrabold leading-8 text-cyan-600">{{ $p->peminjaman_ruangkelas }}</p>
+                  <div class="flex gap-x-4">
+                    <p class="text-gray-500 flex items-center gap-x-2 bg-cyan-50 p-1 rounded-md">
+                      <span class="text-lg material-symbols-outlined">event</span>
+                      <span class="text-xs">{{ strftime('%A, %e %B %Y', strtotime($p->peminjaman_tanggal)) }}</span>
+                    </p>
+                    <p class="text-gray-500 flex items-center gap-x-2 bg-cyan-50 p-1 rounded-md">
+                      <span class="text-lg material-symbols-outlined">schedule</span>
+                      <span class="text-xs font-semibold">
+                        {{ substr($p->peminjaman_waktu_mulai, 0, 5) }}
+                        s/d
+                        {{ substr($p->peminjaman_waktu_selesai, 0, 5) }}
+                      </span>
+                    </p>
+                  </div>
+                  <p class="mt-5 text-sm leading-5 text-gray-500 flex gap-x-2">
+                    <span class="material-symbols-outlined">school</span>
+                    {{ $p->matakuliah_nama }}
+                  </p>
+                </div>
               </div>
-            </div>
-            <div class="shrink-0 flex items-center justify-center align-center gap-x-2">
-                <span class="material-symbols-outlined text-gray-500">
-                  pending
-                </span>
-                <p class="text-xs leading-5 text-gray-500">Waiting...</p>
-            </div>
-          </li>
-          <li class="flex justify-between gap-x-6 p-3 group hover:bg-gray-200 transition-colors duration-400 cursor-pointer">
-            <div class="flex min-w-0 gap-x-4">
-              <div class="min-w-0 flex-auto">
-                <p class="text-sm font-bold leading-6 text-gray-900">C2.01</p>
-                <p class="mt-1 truncate text-xs leading-5 text-gray-500">Model dan Metode Pengembangan Perangkat Lunak
-                </p>
-                <p class="mt-1 truncate text-xs leading-5 text-gray-500">9:00 s/d 10:00</p>
+              <div class="shrink-0">
+                  <span class="flex align-center justify-center items-center gap-x-2 px-4 py-2 rounded-md
+                  @if ($p->peminjaman_status == 'Waiting') ring-gray-500/10 bg-gray-50 text-gray-400
+                  @elseif ($p->peminjaman_status == 'Disetujui') ring-green-600/10 bg-green-50 text-green-700
+                  @elseif ($p->peminjaman_status == 'Ditolak') ring-rose-500/10 bg-rose-50 text-rose-600
+                  @endif
+                  ">
+                    <span class="material-symbols-outlined block">
+                      @if ($p->peminjaman_status == 'Waiting') pending
+                      @elseif ($p->peminjaman_status == 'Disetujui') check_circle
+                      @elseif ($p->peminjaman_status == 'Ditolak') cancel
+                      @endif
+                    </span>
+                    <span class="block text-sm">{{ $p->peminjaman_status }}</span>
+                  </span>
               </div>
-            </div>
-            <div class="shrink-0 flex items-center justify-center align-center gap-x-2">
-                <span class="material-symbols-outlined text-gray-500">
-                  pending
-                </span>
-                <p class="text-xs leading-5 text-gray-500">Waiting...</p>
-            </div>
-          </li>
+            </li>
+          </a>
+          @endforeach
         </ul>
       </main>
     </div>
   </div>
+
+  <script async>
+    const UserMenuHandler = document.getElementById("user-menu-button");
+    UserMenuHandler.addEventListener('click', () => {
+      const classMenu = document.getElementById('list-menu').classList;
+      classMenu.toggle('hidden');
+      classMenu.toggle('block');
+    })
+  </script>
+
 </body>
 
 </html>

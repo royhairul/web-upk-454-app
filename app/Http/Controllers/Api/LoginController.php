@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,10 +30,22 @@ class LoginController extends Controller
         $validatedDataAkun = $validateData->validated();
 
         if (Auth::attempt($validatedDataAkun)) {
+
+            // Isi dari Token
+            $payload = [
+                'id' => Auth::getUser()['nim'],
+                'iat' => Carbon::now()->timestamp,
+                'exp' => Carbon::now()->timestamp + 60*60*2
+            ];
+
+            // Buat Token
+            $token = JWT::encode($payload, env('JWT_SECRET_KEY'), 'HS256');
+
             return response()->json(
                 [
                     'status' => 200,
-                    'msg' => 'Login Akun Berhasil!'
+                    'msg' => 'Login Akun Berhasil!',
+                    'token' => 'Bearer ' . $token
                 ], 200
             );
         } 

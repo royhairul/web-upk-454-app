@@ -17,4 +17,6 @@ class RuangKelas extends Model
         'ruangkelas_prodi',
         'ruangkelas_status'
     ];
+
+    protected $keyType = 'string';
 }

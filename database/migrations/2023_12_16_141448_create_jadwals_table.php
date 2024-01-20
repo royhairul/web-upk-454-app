@@ -18,6 +18,8 @@ return new class extends Migration
             $table->time('jadwal_waktu_mulai');
             $table->time('jadwal_waktu_selesai');
             $table->string('jadwal_ruangkelas');
+            $table->string('jadwal_semester');
+            $table->string('jadwal_prodi');
             $table->timestamps();
         });
     }

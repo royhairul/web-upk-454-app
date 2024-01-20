@@ -14,6 +14,8 @@ class Jadwal extends Model
         'jadwal_matakuliah',
         'jadwal_waktu_mulai',
         'jadwal_waktu_selesai',
-        'jadwal_ruangkelas'
+        'jadwal_ruangkelas',
+        'jadwal_prodi',
+        'jadwal_semester',
     ];
 }
