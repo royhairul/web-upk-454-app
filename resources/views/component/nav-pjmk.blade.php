@@ -1,5 +1,5 @@
-<nav>
-  <div class="mx-auto max-w-full px-8">
+<nav class="sticky top-0 z-50">
+  <div class="mx-auto max-w-full px-8 bg-white">
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
         <div class="flex-shrink-0">
@@ -8,8 +8,9 @@
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
             <a href="{{ route('pjmk.index') }}" class="px-3 py-2 text-sm rounded-md {{ $title == 'Dashboard' ? 'font-bold text-gray-800' : 'font-medium text-gray-500 hover:text-gray-800' }}" >Dashboard</a>
+            <a href="{{ route('pjmk.cari') }}" class="px-3 py-2 text-sm rounded-md {{ $title == 'Pencarian' ? 'font-bold text-gray-800' : 'font-medium text-gray-500 hover:text-gray-800' }}">Pencarian</a>
             <a href="{{ route('pjmk.pinjam') }}" class="px-3 py-2 text-sm rounded-md {{ $title == 'Peminjaman' ? 'font-bold text-gray-800' : 'font-medium text-gray-500 hover:text-gray-800' }}">Peminjaman</a>
-            <a href="#" class="px-3 py-2 text-sm rounded-md {{ $title == 'Jadwal' ? 'font-bold text-gray-800' : 'font-medium text-gray-500 hover:text-gray-800' }}">Jadwal</a>
+            <a href="{{ route('pjmk.jadwal') }}" class="px-3 py-2 text-sm rounded-md {{ $title == 'Jadwal' ? 'font-bold text-gray-800' : 'font-medium text-gray-500 hover:text-gray-800' }}">Jadwal</a>
             <a href="#" class="px-3 py-2 text-sm rounded-md {{ $title == 'Riwayat' ? 'font-bold text-gray-800' : 'font-medium text-gray-500 hover:text-gray-800' }}">Riwayat</a>
           </div>
         </div>
@@ -55,14 +56,18 @@
               class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
               role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" id="list-menu">
               <!-- Active: "bg-gray-100", Not Active: "" -->
-              <p class="block px-4 py-2 text-sm text-gray-300 font-semibold" role="menuitem" tabindex="-1">Nama Username
+              <p class="block px-4 py-2 text-sm text-cyan-400 font-semibold" role="menuitem" tabindex="-1">
+                {{ $user->pjmk_nama }}
               </p>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
+              <form action="{{ route('logout') }}" method="post">
+                @csrf
+              <a href="/profil" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                 id="user-menu-item-0">Your Profile</a>
               <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
                 id="user-menu-item-1">Settings</a>
-              <a href="#" class="block px-4 py-2 text-sm text-rose-500 font-semibold" role="menuitem" tabindex="-1"
-                id="user-menu-item-2">Sign out</a>
+              <button type="submit" class="block px-4 py-2 text-sm text-rose-500 font-semibold" role="menuitem" tabindex="-1"
+                id="user-menu-item-2">Sign out</button>
+              </form>
             </div>
           </div>
         </div>
@@ -137,3 +142,12 @@
     </div>
   </div>
 </nav>
+
+<script async>
+  const UserMenuHandler = document.getElementById("user-menu-button");
+  UserMenuHandler.addEventListener('click', () => {
+    const classMenu = document.getElementById('list-menu').classList;
+    classMenu.toggle('hidden');
+    classMenu.toggle('block');
+  })
+</script>

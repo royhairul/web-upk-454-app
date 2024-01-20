@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_fasilitas', function (Blueprint $table) {
-            $table->id('fasilitas_id');
+            $table->string('fasilitas_code', 10);
             $table->string('fasilitas_name');
             $table->string('fasilitas_type');
+            $table->string('fasilitas_status');
             $table->timestamps();
         });
     }

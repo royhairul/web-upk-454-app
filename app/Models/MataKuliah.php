@@ -16,4 +16,6 @@ class MataKuliah extends Model
         'matakuliah_nama',
         'matakuliah_dosen',
     ];
+
+    protected $keyType = 'string';
 }

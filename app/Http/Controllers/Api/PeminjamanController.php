@@ -3,41 +3,27 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PeminjamanRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Peminjaman;
 
 class PeminjamanController extends Controller
 {
-    public function store(Request $request)
+    public function store(PeminjamanRequest $request)
     {
-        $customMessages = [
-            'required' => ':attribute field is required.'
-        ];
-
-        // Validasi Data PJMK
-        $validatePeminjaman = Validator::make($request->all(), [
-            'pjmk' => 'required',
-            'ruangkelas' => 'required',
-            'matakuliah' => 'required',
-            'tanggal' => 'required',
-            'waktu_mulai' => 'required',
-            'waktu_selesai' => 'required',
-            'fasilitas' => 'required'
-        ], $customMessages);
-
+        // Menyimpan Data ke dalam Array
+        $validatedDataPeminjaman = $request->validated();
+        
         // Jika Validasi Data PJMK Gagal
-        if ($validatePeminjaman->fails()) {
+        if ($request->fails()) {
             return response()
                 ->json([
                     'status' => 400,
-                    'errors' => $validatePeminjaman->messages()
+                    'errors' => $request->messages()
                 ])
                 ->setStatusCode(400);
         }
-
-        // Menyimpan Data ke dalam Array
-        $validatedDataPeminjaman = $validatePeminjaman->validated();
 
         // Penyisipan data sesuai dengan kolom pada tabel PJMK
         Peminjaman::create([
@@ -46,8 +32,7 @@ class PeminjamanController extends Controller
             'peminjaman_matakuliah' => $validatedDataPeminjaman['matakuliah'],
             'peminjaman_tanggal' => $validatedDataPeminjaman['tanggal'],
             'peminjaman_waktu_mulai' => $validatedDataPeminjaman['waktu_mulai'],
-            'peminjaman_waktu_selesai' => $validatedDataPeminjaman['waktu_selesai'],
-            'peminjaman_fasilitas' => $validatedDataPeminjaman['fasilitas'],
+            'peminjaman_waktu_selesai' => $validatedDataPeminjaman['waktu_selesai']
         ]);
 
         return response()->json(

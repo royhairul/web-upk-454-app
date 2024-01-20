@@ -15,7 +15,7 @@
         alt="UPK Poliwangi Gedung 454">
         <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Log in</h2>
         <p class="text-base text-center leading-9 tracking-tight text-gray-900">
-          Masuk dengan <span class="font-semibold text-cyan-600">Akun</span> Kamu
+          Masuk dengan <span class="font-semibold text-cyan-600">Akun</span> Anda
         </p>
     </div>
 
@@ -23,7 +23,7 @@
       <form class="space-y-6" action="{{ route('login.auth') }}" method="POST">
         @csrf
         <div>
-          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Nomor Induk Mahasiswa</label>
+          <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
           <div class="mt-2">
             <input id="username" name="username" type="text" autofocus required class="block w-full rounded-md border-1 px-2 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
               placeholder:text-gray-400 focus:ring-1 focus:ring-outset focus:ring-cyan-600 sm:text-sm sm:leading-6

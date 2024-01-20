@@ -15,13 +15,13 @@ class UserSeeder extends Seeder
     {
         $list_users = [
             [
-                'name' => 'Roy Hairul Anam',
-                'email' => 'royhairul@gmail.com',
+                'username' => 'Roy Hairul Anam',
+                'nim' => '362258302016',
                 'password' => '12345'
             ],
             [
-                'name' => 'Sandi Sukoco Putro',
-                'email' => 'sandisp@gmail.com',
+                'username' => 'Sandi Sukoco Putro',
+                'nim' => '362258302037',
                 'password' => '12345',
             ]
         ];

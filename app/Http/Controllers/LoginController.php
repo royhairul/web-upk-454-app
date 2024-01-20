@@ -25,11 +25,23 @@ class LoginController extends Controller
         {
             $request->session()->regenerate();
 
+            if(Auth::user()->hasRole('pjmk')) {
+                return redirect()->intended(route('pjmk.index'));
+            }
+            
             return redirect()->intended(route('admin.laporan'));
         }
 
         return back()->withErrors([
-            'username' => 'Username yang anda input tidak ada.',
+            'username' => 'Username atau password anda salah'
         ])->onlyInput('username');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }

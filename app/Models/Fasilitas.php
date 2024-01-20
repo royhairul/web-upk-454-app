@@ -10,9 +10,12 @@ class Fasilitas extends Model
     use HasFactory;
 
     protected $table = "tb_fasilitas";
+    protected $primaryKey = "fasilitas_code";
     protected $fillable = [
-        'fasilitas_id',
+        'fasilitas_code',
         'fasilitas_name',
-        'fasilitas_type'
+        'fasilitas_type',
+        'fasilitas_status',
     ];
+    protected $keyType = "string";
 }

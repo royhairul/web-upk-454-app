@@ -12,4 +12,6 @@ class Prodi extends Model
     protected $table = 'tb_prodi';
     protected $primaryKey = 'prodi_code';
     protected $fillable = ['prodi_code','prodi_nama', 'prodi_jurusan'];
+
+    protected $keyType = 'string';
 }

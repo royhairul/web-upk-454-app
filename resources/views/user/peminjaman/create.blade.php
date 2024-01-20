@@ -9,61 +9,81 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/tw-elements.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body class="bg-gray-100">
   <div class="container max-w-full min-h-full">
-    @include('partials.nav-pjmk', ['title' => 'Peminjaman'])
+    @include('component.nav-pjmk', ['title' => 'Peminjaman', 'user' => $user])
 
     <div class="p-8 w-full">
       <header class="flex gap-x-20 align-center">
         <div>
-          <h2 class="text-2xl font-bold">Ajukan Peminjaman</h2>
-          <p class="text-base text-gray-600">Buat pengajuan peminjaman ruang kelas</p>
+          <h2 class="text-2xl font-bold leading-8">Ajukan Peminjaman</h2>
+          <p class="text-base text-gray-500">Buat pengajuan peminjaman ruang kelas</p>
         </div>
       </header>
       <main class="mt-5">
-        <form action="" method="get">
-          <div class="w-full mt-5 grid grid-cols-2 gap-2">
+        <form action="{{ route('pjmk.pinjam.store') }}" method="post">
+          @csrf
+          <div class="w-full mt-5 grid grid-cols-1 gap-4">
             <div class="row-span-1 order-first">
-              <label for="prodi" class="block text-sm font-medium leading-6 text-gray-900">Pilih Ruangan</label>
+              <label for="ruangkelas" class="block text-sm font-medium leading-6 text-gray-900">Pilih Ruangan</label>
               <div class="mt-2">
-                <select id="prodi" name="prodi" autocomplete="prodi"
+                <select id="ruangkelas" name="ruangkelas" autocomplete="ruangkelas"
                   class="block w-2/3 rounded-md border-0 px-3 py-1.5 text-gray-500 text-sm shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-cyan-600">
-                  <option selected default>Pilih Ruang Kelas...</option>
-                  <option>C2.11</option>
-                  <option>C2.11</option>
-                  <option>C2.11</option>
+                  <option value="" selected default>Pilih Ruang Kelas...</option>
+                  @foreach($ruangkelas as $rk)
+                  <option value="{{$rk->ruangkelas_code}}">
+                    {{$rk->ruangkelas_code}}
+                  </option>
+                  @endforeach
                 </select>
               </div>
             </div>
 
             <div class="row-span-1 order-3">
-              <label for="nama" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Peminjaman</label>
+              <label for="tanggal" class="block text-sm font-medium leading-6 text-gray-900">Tanggal Peminjaman</label>
               <div class="mt-2">
-                <input type="date" name="nama" id="nama" autocomplete="given-name"
+                <input type="date" name="tanggal" id="tanggal" min="{{ date('Y-m-d') }}" 
                   class="block w-2/3 rounded-md border-0 px-3 py-1.5 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
               </div>
             </div>
 
-            <div class="row-span-1 order-5">
-              <label for="peminjaman_timestart" class="block text-sm font-medium leading-6 text-gray-900">Waktu
+            <div class="relative row-span-1 order-5">
+              <label for="waktu_mulai" class="block text-sm font-medium leading-6 text-gray-900">Waktu
                 Peminjaman</label>
-              <div class="flex gap-x-4">
-                <div class="relative mt-2" id="timepicker-first" data-te-input-wrapper-init>
-                  <input type="text" name="peminjaman_timestart" id="peminjaman_timestart" autocomplete="given-name"
+              <div class="flex flex-col w-[30%]">
+                <div class="relative mt-2 flex justify-center items-center gap-x-2" id="timepicker-first">
+                  <input type="text" name="waktu_mulai" id="peminjaman_timestart" autocomplete="given-name"
                     placeholder="Mulai"
-                    class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
+                    class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
+                        placeholder:text-gray-400 placeholder:text-sm focus:ring-1 focus:ring-inset focus:ring-cyan-600 border-0">
+                    <button type="button"
+                      class="inline-block rounded bg-cyan-500 p-1.5 text-sm font-medium text-white flex items-center justify-center"
+                      data-te-toggle="timepicker-without-icon" data-te-ripple-init>
+                      <span class="material-symbols-rounded">schedule</span>
+                    </button>
                 </div>
 
-                <div class="relative mt-2" id="timepicker-last" data-te-input-wrapper-init>
-                  <input type="text" name="peminjaman_timefinish" id="peminjaman_timefinish" autocomplete="given-name"
+                <div class="relative mt-2 flex justify-center items-center gap-x-2" id="timepicker-last">
+                  <input type="text" name="waktu_selesai" id="peminjaman_timefinish" autocomplete="given-name"
                     placeholder="Selesai"
-                    class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
+                    class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 
+                        placeholder:text-gray-400 placeholder:text-sm focus:ring-1 focus:ring-inset focus:ring-cyan-600 border-0
+                        @error('waktu_selesai') ring-rose-500  @enderror">
+                    <button type="button"
+                      class="inline-block rounded bg-cyan-500 p-1.5 text-sm font-medium text-white flex items-center justify-center"
+                      data-te-toggle="timepicker-without-icon" data-te-ripple-init>
+                      <span class="material-symbols-rounded">schedule</span>
+                    </button>
                 </div>
+                @error('waktu_selesai')
+                <p class="absolute -bottom-6 text-sm text-rose-500">{{$message}}</p>
+                @enderror
               </div>
             </div>
-
+            <!-- 
             <div class="row-span-1 order-4">
               <label class="block text-sm font-medium leading-6 text-gray-900">Fasilitas</label>
               <div class="mt-2 h-max flex gap-x-8">
@@ -81,12 +101,20 @@
                 </div>
               </div>
             </div>
+            -->
 
-            <div class="row-span-1 order-2">
-              <label for="nama" class="block text-sm font-medium leading-6 text-gray-900">Tujuan Peminjaman</label>
+            <div class="row-span-1 order-first">
+              <label for="matakuliah" class="block text-sm font-medium leading-6 text-gray-900">Pilih Mata Kuliah</label>
               <div class="mt-2">
-                <input type="textarea" name="nama" id="nama" autocomplete="given-name"
-                  class="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-cyan-600 sm:text-sm sm:leading-6">
+                <select id="matakuliah" name="matakuliah" autocomplete="matakuliah"
+                  class="block w-2/3 rounded-md border-0 px-3 py-1.5 text-gray-500 text-sm shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-cyan-600">
+                  <option selected default>Pilih Mata Kuliah...</option>
+                  @foreach($matakuliah as $mk)
+                  <option value="{{$mk->matakuliah_id}}">
+                    {{$mk->matakuliah_nama}}
+                  </option>
+                  @endforeach
+                </select>
               </div>
             </div>
 
@@ -109,22 +137,13 @@
     const timepickerStart = new te.Timepicker(timeStart, {
       increment: true,
       format24: true,
-      minTime: "07:30",
-      maxTime: "16:00",
+      withIcon: false
     });
-
-    const input = timeStart.querySelector('input#peminjaman_timestart');
-
-    let getTimeStart = "";
-    input.addEventListener('input', () => {
-      getTimeStart = input.value.toString();
-      const timeFinish = document.querySelector("#timepicker-last");
-      const timepickerFinish = new te.Timepicker(timeFinish, {
-        increment: true,
-        format24: true,
-        minTime: getTimeStart,
-        maxTime: "16:00",
-      });
+    const timeFinish = document.querySelector("#timepicker-last");
+    const timepickerFinish = new te.Timepicker(timeFinish, {
+      increment: true,
+      format24: true,
+      withIcon: false
     });
 
   </script>

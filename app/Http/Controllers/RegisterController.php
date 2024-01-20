@@ -7,6 +7,7 @@ use App\Models\Prodi;
 use App\Models\PJMK;
 use App\Models\User;
 
+set_time_limit(0);
 
 class RegisterController extends Controller
 {
@@ -18,7 +19,7 @@ class RegisterController extends Controller
         // Mengambil data prodi
         $prodi = Prodi::all();
 
-        // Menampilkan Formulir untuk Personal Data
+        //Menampilkan Formulir untuk Personal Data
         return view("register.register-personal", [
             "page" => "register-personal",
             "prodi" => $prodi
@@ -31,10 +32,11 @@ class RegisterController extends Controller
         return view("register.register-account", ["page" => "register-account"]);
     }
 
-    public function showConfirmation($isCreated = null)
+    public function showConfirmation($isCreated)
     {
-        if($isCreated == null) {
-            return redirect()->route('register');
+        session()->flush();
+        if (!isset($isCreated)) {
+            return dd(empty($isCreated));
         }
         return view('register.register-confirm', [
             "page" => "register-confirm",
@@ -48,45 +50,50 @@ class RegisterController extends Controller
         $customMessages = [
             'required' => ':attribute field is required.',
             'email' => ':attribute must be valid email address.',
-            'regex' => ':attribute field must start with "+62" or "0".',
+            "regex:/[a-zA-Z]/" => ":attribute must be char not number.",
+            'regex:/^[1-6][A-Z]$/' => ":attribute not valid.",
+            "regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/" => ":attribute field must start with '+62' or '0'.",
         ];
 
         // Validasi Data PJMK
         $validateDataPJMK = $request->validate([
-            'NIM' => 'required',
-            'nama' => 'required',
-            'kelas' => 'required',
+            'nim' => ['required', 'numeric'],
+            'nama' => [
+                'required',
+                'string',
+                'regex:/^[^\d]+$/',
+            ],
+            'kelas' => 'required|regex:/^[1-6][A-Z]$/',
             'prodi' => 'required',
-            'phone' => ['required', 'string', 'regex:/^(\+62|0)\d{9,15}$/'],
+            'phone' => ['required', 'min:12', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
             'email' => 'required|email',
         ], $customMessages);
 
-        // Jika Data Berhasil di Validasi
-        if($validateDataPJMK) {
-            // Mengambil Data dari Input
-            $data = [
-                'pjmk_nim' => $request->input('NIM'),
-                'pjmk_nama' => $request->input('nama'),
-                'pjmk_kelas' => $request->input('kelas'),
-                'pjmk_prodi' => $request->input('prodi'),
-                'pjmk_phone' => $request->input('phone'),
-                'pjmk_email' => $request->input('email'),
-            ];
+        // Jika Data Gagal  di Validasi
+        if (!$validateDataPJMK) {
+            return back()->withErrors($validateDataPJMK);
+        }
 
-            // Pengecekan data pada database
-            if (PJMK::where('pjmk_nim', $data['pjmk_nim'])->exists()) {
-                return $this->showConfirmation($isCreated = false);
-            }
+        // Mengambil Data dari Input
+        $data = [
+            'pjmk_nim' => $request->input('nim'),
+            'pjmk_nama' => $request->input('nama'),
+            'pjmk_kelas' => $request->input('kelas'),
+            'pjmk_prodi' => $request->input('prodi'),
+            'pjmk_phone' => $request->input('phone'),
+            'pjmk_email' => $request->input('email'),
+        ];
 
+        // Pengecekan data pada database
+        if (PJMK::where('pjmk_nim', $data['pjmk_nim'])->exists()) {
+            return $this->showConfirmation(false);
+        } else {
             // Menyimpan Data ke dalama Session
             session()->put('dataPJMK', $data);
 
             // Redirect menampilkan formulir untuk membuat Akun
             return redirect()->route('register.account');
         }
-
-        // Jika Validasi Gagal
-        return back()->withErrors($validateDataPJMK);
     }
 
     public function validateAccount(Request $request)
@@ -101,9 +108,9 @@ class RegisterController extends Controller
             'username' => 'required',
             'password' => 'required|confirmed'
         ], $customMessages);
-        
+
         // Jika validasi Gagal
-        if(!$validateDataAccount) {
+        if (!$validateDataAccount) {
             return back()->withErrors($validateDataAccount);
         }
 
@@ -116,25 +123,23 @@ class RegisterController extends Controller
             'username' => $request->input('username'),
             'password' => $request->input('password')
         ];
-    
+
         // Menyimpan data PJMK ke dalam tabel PJMK
         $db_PJMK = PJMK::firstOrCreate($dataPJMK);
 
         // Melakukan pengecekan pada database
-        if ($db_PJMK->wasRecentlyCreated)
-        {
+        if ($db_PJMK->wasRecentlyCreated) {
             // Jika belum ada pada Database
             // Menyimpan ke dalam database
-            User::create($dataAccount);
+            $user = User::create($dataAccount);
+            $user->assignRole('pjmk');
+
 
             // Redirect ke halaman 
-            return $this->showConfirmation($isCreated = true);
-        }
-
-        else 
-        {
+            return $this->showConfirmation(true);
+        } else {
             // Jika sudah ada pada Database
-            return $this->showConfirmation($isCreated = false);
+            return $this->showConfirmation(false);
         }
     }
 }

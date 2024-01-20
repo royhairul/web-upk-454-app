@@ -53,7 +53,7 @@ class PJMKSeeder extends Seeder
                 'pjmk_img' => null,
             ],
         ];
-
+                
         PJMK::insert($list_pjmk);
     }
 }

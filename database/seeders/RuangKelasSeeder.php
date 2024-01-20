@@ -16,13 +16,13 @@ class RuangKelasSeeder extends Seeder
     {
         $list_ruangan = [
             [
-                'ruangkelas_code' => 'C1.2',
+                'ruangkelas_code' => 'C1.4',
                 'ruangkelas_kapasitas' => '30',
                 'ruangkelas_prodi' => 'TRPL',
                 'ruangkelas_status' => 'Digunakan'
             ],
             [
-                'ruangkelas_code' => 'C3.1',
+                'ruangkelas_code' => 'C3.3',
                 'ruangkelas_kapasitas' => '30',
                 'ruangkelas_prodi' => 'TRPL',
                 'ruangkelas_status' => 'Digunakan'

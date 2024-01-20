@@ -3,61 +3,77 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\View\View;
-
 use App\Models\Peminjaman;
 
 class PeminjamanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index() : View
+    public function pengajuan(Request $data)
     {
-        $data = Peminjaman::join('tb_pjmk', 'pjmk_nim', '=', 'peminjaman_pjmk')
-                            ->join('tb_ruangkelas', 'ruangkelas_code', 'peminjaman_ruangkelas')
-                            ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
-                            ->select('tb_peminjaman.peminjaman_id', 'tb_pjmk.pjmk_kelas', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_nama', 'tb_peminjaman.peminjaman_tanggal', 'tb_matakuliah.matakuliah_nama')
-                            ->get();
+        $filter = $data->query('filter');
 
-        return view('admin.laporan', compact('data'));
-    }
-
-    public function search(Request $request)
-    {
-        $searchTerm = $request->input('search');
-        
-        if($searchTerm == null) {
-            $data = Peminjaman::join('tb_pjmk', 'pjmk_nim', '=', 'peminjaman_pjmk')
-                    ->join('tb_ruangkelas', 'ruangkelas_code', 'peminjaman_ruangkelas')
-                    ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
-                    ->select('tb_peminjaman.peminjaman_id', 'tb_pjmk.pjmk_kelas', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_nama', 'tb_peminjaman.peminjaman_tanggal', 'tb_matakuliah.matakuliah_nama')
-                    ->get();
-
-        }
-
-        $data = Peminjaman::join('tb_pjmk', 'pjmk_nim', '=', 'peminjaman_pjmk')
+        // Jika tidak ada pada parameter pada route 'peminjaman'
+        // maka akan menampilkan semua peminjaman yang belum disetujui
+        if($filter == 'true') {
+            $peminjaman = Peminjaman::where('peminjaman_status', 'Disetujui')
                 ->join('tb_ruangkelas', 'ruangkelas_code', 'peminjaman_ruangkelas')
                 ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
-                ->select('tb_peminjaman.peminjaman_id', 'tb_pjmk.pjmk_kelas', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_nama', 'tb_peminjaman.peminjaman_tanggal', 'tb_matakuliah.matakuliah_nama')
-                ->where('tb_pjmk.pjmk_nama', 'like', '%' . $searchTerm . '%')
-                ->orWhere('tb_pjmk.pjmk_kelas', 'like', '%' . $searchTerm . '%')
+                ->join('tb_pjmk', 'pjmk_nim', 'peminjaman_pjmk')
+                ->select('tb_peminjaman.*', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_kelas', 'tb_pjmk.pjmk_prodi', 'tb_matakuliah.matakuliah_nama')
                 ->get();
+        }
+        if($filter == null) {
+            $peminjaman = Peminjaman::where('peminjaman_status', 'Waiting')
+                            ->join('tb_ruangkelas', 'ruangkelas_code', 'peminjaman_ruangkelas')
+                            ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
+                            ->join('tb_pjmk', 'pjmk_nim', 'peminjaman_pjmk')
+                            ->select('tb_peminjaman.*', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_kelas', 'tb_pjmk.pjmk_prodi', 'tb_matakuliah.matakuliah_nama')
+                            ->get();
+        }
 
-        return view('admin.laporan', compact('data'));
+        return view('admin.peminjaman.pengajuan', compact('peminjaman'));
     }
 
-    public function filter(Request $request) {
-        $dateStart = $request->input('dateStart');
-        $dateEnd = $request->input('dateEnd');
+    public function peminjamanVerif($id) {
+        $data = Peminjaman::where('peminjaman_id', $id )
+                        ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
+                        ->join('tb_pjmk', 'pjmk_nim', 'peminjaman_pjmk')
+                        ->select('tb_peminjaman.*', 'tb_pjmk.*', 'tb_matakuliah.matakuliah_nama')
+                        ->get();
+        return view('admin.peminjaman.verifikasi', compact('data'));
+    }
 
-        $data = Peminjaman::join('tb_pjmk', 'pjmk_nim', '=', 'peminjaman_pjmk')
+    public function verifikasiPinjaman(Request $request, $id) {
+        $data = Peminjaman::find($id);
+        $data->peminjaman_status = $request->input('status');
+        $data->save();
+
+        return redirect()->route('admin.pengajuan');
+    }
+    
+    public function viewPeminjaman() {
+        $peminjaman = Peminjaman::where('peminjaman_status', 'Disetujui')
             ->join('tb_ruangkelas', 'ruangkelas_code', 'peminjaman_ruangkelas')
             ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
-            ->select('tb_peminjaman.peminjaman_id', 'tb_pjmk.pjmk_kelas', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_nama', 'tb_peminjaman.peminjaman_tanggal', 'tb_matakuliah.matakuliah_nama')
-            ->whereBetween('tb_peminjaman.peminjaman_tanggal', [$dateStart, $dateEnd])
+            ->join('tb_pjmk', 'pjmk_nim', 'peminjaman_pjmk')
+            ->select('tb_peminjaman.*', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_kelas', 'tb_pjmk.pjmk_prodi', 'tb_matakuliah.matakuliah_nama')
             ->get();
-
-        return view('welcome');
+        return view('admin.peminjaman.peminjaman', compact('peminjaman'));
     }
+
+    public function detailPeminjaman($id) {
+        $peminjaman = Peminjaman::where('peminjaman_id', $id)
+            ->join('tb_ruangkelas', 'ruangkelas_code', 'peminjaman_ruangkelas')
+            ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
+            ->join('tb_pjmk', 'pjmk_nim', 'peminjaman_pjmk')
+            ->select('tb_peminjaman.*', 'tb_ruangkelas.ruangkelas_code', 'tb_pjmk.pjmk_kelas', 'tb_pjmk.pjmk_prodi', 'tb_matakuliah.matakuliah_nama')
+            ->get();
+        return view('admin.peminjaman.verif_pinjam', compact('peminjaman'));
+    }
+
+    public function pengembalian()
+    {
+
+        return view('admin.pengembalian');
+    }
+
 }

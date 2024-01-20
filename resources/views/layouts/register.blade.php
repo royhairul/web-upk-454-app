@@ -22,12 +22,12 @@
         </a>
       </div>
 
-      <div class="hidden border-b border-dashed lg:block dark:border-neutral-700/70 border-neutral-200"></div>
+      <div class="hidden border-b border-dashed lg:block border-neutral-200"></div>
 
-      <ol class="relative text-gray-500 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400 pl-2" id="navbar">
+      <ol class="relative text-gray-500 border-s border-gray-200 pl-2" id="navbar">
         <li class="group mb-10 ms-6 {{ $page == 'register-personal' ? 'active' : '' }}">
           <span
-            class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 group-[.active]:bg-cyan-200 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
+            class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 group-[.active]:bg-cyan-200 rounded-full -start-4 ring-4 ring-white">
               <span class="absolute material-symbols-outlined text-xl	 items-center text-gray-500 group-[.active]:text-cyan-500">
                 account_circle
               </span>
@@ -37,7 +37,7 @@
         </li>
         <li class="group mb-10 ms-6 {{ $page == 'register-account' ? 'active' : '' }}">
           <span
-            class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 group-[.active]:bg-cyan-200 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
+            class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 group-[.active]:bg-cyan-200 rounded-full -start-4 ring-4 ring-white">
             <span class="absolute material-symbols-outlined text-xl items-center text-gray-500 group-[.active]:text-cyan-500">
               assignment_ind
             </span>
@@ -47,7 +47,7 @@
         </li>
         <li class="group ms-6 {{ $page == 'register-confirm' ? 'active' : '' }}">
           <span
-            class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 group-[.active]:bg-cyan-200 rounded-full -start-4 ring-4 ring-white dark:ring-gray-900 dark:bg-green-900">
+            class="absolute flex items-center justify-center w-8 h-8 bg-gray-100 group-[.active]:bg-cyan-200 rounded-full -start-4 ring-4 ring-white">
             <span class="absolute material-symbols-outlined text-xl items-center text-gray-500 group-[.active]:text-cyan-500">
               assignment_turned_in
             </span>

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ProdiSeeder::class,
             MataKuliahSeeder::class,
             RuangKelasSeeder::class,
+            RolePermissionSeeder::class,
         ]);
     }
 }
