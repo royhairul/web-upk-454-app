@@ -14,19 +14,11 @@
 </a>
 
 <!-- Input Search -->
-<<<<<<< HEAD
-<!-- <form action="{{ route('search') }}" method="post" class="mt-10 flex gap-4">
-  @csrf
-  <input type="text" name="search" id="search"
-    class="rounded-md w-[50ch] border-0 py-2.5 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-    placeholder="Cari berdasarkan kode inventaris">
-=======
 <form action="/admin/inventaris" method="get" class="mt-10 flex gap-4">
   @csrf
   <input type="text" name="search" id="search"
     class="rounded-md w-[50ch] border-0 py-2.5 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
     placeholder="Cari berdasarkan Kode Inventaris, Merk Barang dan Type Barang ">
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
   <button type="submit"
     class="flex cursor-pointer rounded-md bg-indigo-600 px-2.5 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
     <span class="material-symbols-rounded">
@@ -34,11 +26,7 @@
     </span>
   </button>
 
-<<<<<<< HEAD
-</form> -->
-=======
 </form>
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
 
 <!-- Table -->
 <div class="mt-10 relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
@@ -61,12 +49,9 @@
               Type Barang</th>
             <th
               class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-<<<<<<< HEAD
-=======
               Status</th>
             <th
               class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
               Action</th>
             
           </tr>
@@ -90,8 +75,8 @@
             <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
               {{ $rk->fasilitas_status }}</td>
             <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-              <form action="{{ route('admin.inventaris.destroy', $rk->fasilitas_code) }}" method="post">
-                @method('DELETE')
+              <form action="{{ route('admin.inventaris.delete', $rk->fasilitas_code) }}" method="post">
+                @method('PUT')
                 @csrf
                 <a href="{{ route('admin.inventaris.edit', $rk->fasilitas_code) }}" class="font-semibold text-indigo-600"
                   id='showButton'>
