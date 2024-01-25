@@ -17,11 +17,11 @@ return new class extends Migration
             $table->string('peminjaman_ruangkelas');
             $table->string('peminjaman_matakuliah');
             $table->string('peminjaman_admin')->nullable();
-            $table->string('peminjaman_fasilitas', 3);
+            $table->string('peminjaman_fasilitas')->nullable();
             $table->date('peminjaman_tanggal');
             $table->time('peminjaman_waktu_mulai');
             $table->time('peminjaman_waktu_selesai');
-            $table->enum('peminjaman_status', ['Waiting', 'Ditolak', 'Disetujui', 'Berlangsung'])->default('Waiting');
+            $table->enum('peminjaman_status', ['Waiting', 'Ditolak', 'Disetujui', 'Berlangsung', 'Selesai'])->default('Waiting');
             $table->timestamps();
         });
     }
