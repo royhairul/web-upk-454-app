@@ -13,9 +13,7 @@
     <div class="flex items-center mr-5">
       <div class="mr-5">
         <div class="inline-block relative shrink-0 cursor-pointer rounded-[.95rem]">
-          <img class="w-[40px] h-[40px] shrink-0 inline-block rounded-[.95rem]"
-            src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar1.jpg"
-            alt="avatar image">
+        <span class="material-symbols-outlined border-4 border-cyan-400 rounded-full">mood</span>
         </div>
       </div>
       <div class="mr-2 ">
@@ -91,8 +89,8 @@
       <!-- menu item -->
       <div>
         <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-          <a href="/admin/jadwal"
-            class="flex items-center flex-grow text-base transition-colors duration-150 hover:text-cyan-500 {{ $title == 'Jadwal' ? 'font-semibold text-dark-500' : 'text-stone-500'}}">Jadwal</a>
+          <a href="/admin/pjmk"
+            class="flex items-center flex-grow text-base transition-colors duration-150 hover:text-cyan-500 {{ $title == 'PJMK' ? 'font-semibold text-dark-500' : 'text-stone-500'}}">PJMK</a>
         </span>
       </div>
 
@@ -112,12 +110,13 @@
         </span>
       </div>
 
-      <div>
-        <span class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem] bg-gray-100">
+      <div class="mt-10">
+        <span class="select-none flex justify-center p-2 cursor-pointer rounded-sm bg-rose-50">
           <form action="{{ route('logout') }}" method="post">
             @csrf
-          <button type="submit"
-            class="flex items-center flex-grow text-base text-rose-500 font-semibold">Log Out</button>
+            <button type="submit" class="text-base text-center text-rose-500 font-semibold">
+              Log Out
+            </button>
           </form>
         </span>
       </div>
