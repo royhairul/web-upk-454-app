@@ -6,20 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PJMK | Pencarian Ruangan</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body class="bg-gray-100">
   <div class="max-w-full h-screen relative top-0 left-0">
-    @include('component.nav-pjmk', ['title' => 'Info Ruangan'])
-    <main class="mb-20">
-      <h1 class="text-2xl font-semibold">Informasi Ruang Kelas</h1>
-      <p class="text-base text-slate-500">
-        Informasi mengenai ruang kelas pada hari 
+    @include('component.nav-pjmk', ['title' => 'Pencarian'])
+    <main class="mb-20 p-8">
+      <h1 class="text-2xl font-bold">Informasi Ruang Kelas</h1>
+      <p class="text-sm text-gray-500 leading-8">
+        Informasi Penggunaan Ruang Kelas Per
+        <b> 
         @php 
-        setlocale(LC_TIME, 'Indonesian');
-        $hari_ini = strftime('%A', time());
-        echo $hari_ini;
+          setlocale(LC_TIME, 'Indonesian');
+          $hari_ini = strftime('%A, %e %B %Y', time());
+          echo $hari_ini;
         @endphp
+        </b>
       </p>
 
       <!-- Table -->
@@ -29,55 +35,38 @@
         </div>
         <div class="relative rounded-xl overflow-auto">
           <div class="shadow-sm overflow-hidden my-8">
-            <table class="border-collapse table-auto w-full text-sm">
+            <table class="border-collapse table-fixed w-full text-sm">
               <thead>
                 <tr>
+                  @foreach($ruangkelas as $rk)
                   <th
                     class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                    Hari</th>
-                  <th
-                    class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                    Kode Ruangan</th>
-                  <th
-                    class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                    Kelas</th>
-                  <th
-                    class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                    Tanggal Pinjam</th>
-                  <th
-                    class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-                    Mata Kuliah</th>
+                    {{$rk->ruangkelas_code}}
+                  </th>
+                  @endforeach
                 </tr>
               </thead>
               <tbody class="bg-white dark:bg-slate-800">
-                @if (sizeOf($data) == 0)
                 <tr>
-                  <td
-                    class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400"
-                    colspan="5">
-                    Tidak Ada Hasil</td>
-                </tr>
-                @else
-                @foreach ($data as $peminjaman)
-                <tr>
-                  <td
-                    class="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                    {{ $peminjaman->ruangkelas_code }}</td>
-                  <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-                    {{ $peminjaman->pjmk_nama }}</td>
-                  <td class="border-b border-slate-100 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
-                    {{ $peminjaman->pjmk_kelas }}</td>
-                  <td
-                    class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-                    {{ $peminjaman->peminjaman_tanggal }}
+                  @foreach($peminjamanPerRuang as $pj)
+                  <td class="border-b border-slate-100 p-4 pl-8 text-slate-500">
+                    <div class="flex gap-x-4 border p-2 bg-gray-100 shadow-sm rounded-sm">
+                        <p class="text-gray-500 flex items-center gap-x-2 p-1 rounded-md">
+                          <span class="text-lg material-symbols-outlined">tag</span>
+                          <span class="text-sm">{{ $pj->pjmk_prodi }} - {{ $pj->pjmk_kelas }}</span>
+                        </p>
+                        <p class="text-gray-500 flex items-center gap-x-2 p-1 rounded-md">
+                          <span class="text-lg material-symbols-outlined">schedule</span>
+                          <span class="text-sm font-semibold">
+                            {{ substr($pj->peminjaman_waktu_mulai, 0, 5) }}
+                            s/d
+                            {{ substr($pj->peminjaman_waktu_selesai, 0, 5) }}
+                          </span>
+                        </p>
+                      </div>
                   </td>
-                  <td
-                    class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-                    {{ $peminjaman->matakuliah_nama }}
-                  </td>
+                  @endforeach
                 </tr>
-                @endforeach
-                @endif
               </tbody>
             </table>
           </div>

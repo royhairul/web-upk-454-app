@@ -23,7 +23,8 @@
       </div>
     </header>
     <main class="mb-20">
-      <div class="mt-10 mx-auto max-w-7xl p-6 bg-white shadow-sm rounded-xl">
+      
+      <!-- <div class="mt-10 mx-auto max-w-7xl p-6 bg-white shadow-sm rounded-xl">
         <h1 class="text-lg font-semibold text-gray-800">Jadwal Anda Hari Ini</h1>
         <p class="text-sm font-semibold text-cyan-500">
           @php
@@ -32,7 +33,6 @@
           echo strftime('%A, %e %B %Y', time());
           @endphp
         </p>
-        <!-- Box-wrapper -->
         <div class="w-full flex flex-wrap mt-5">
           <div class="flex flex-col rounded-lg bg-white w-max p-4 border-[1.5px] border-dashed shadow-sm">
             <h1 class="text-base font-bold text-gray-800">Metode dan Model Pengembangan Perangkat Lunak</h1>
@@ -47,11 +47,86 @@
               Lihat Detail</a>
           </div>
         </div>
+      </div> -->
+
+      <!-- Peminjaman Hari Ini -->
+      <div class="mt-10 mx-auto max-w-7xl p-6 bg-white shadow-sm rounded-xl">
+        <div class="flex flex-col justify-between items-start">
+          <h1 class="text-lg font-semibold text-gray-800">Daftar Peminjaman Hari Ini</h1>
+          <p class="text-sm font-semibold text-cyan-500">
+            @php
+            setlocale(LC_ALL, 'Indonesian'); // Set locale ke bahasa Indonesia
+
+            echo strftime('%A, %e %B %Y', time());
+            @endphp
+          </p>
+        </div>
+        <!-- Box-wrapper -->
+        <div class="w-full flex flex-wrap mt-5">
+          @if (sizeOf($peminjaman_today) == 0)
+          <p class="text-gray-400 w-full text-center border-[1.5px] border-dashed py-10">
+            Tidak Ada Peminjaman Hari Ini
+          </p>
+
+          @else
+          <ul role="list" class="w-full flex flex-col divide-y-2 divide-gray-200 gap-4 divide-dotted bg-white p-5 rounded-md">
+            @foreach ($peminjaman_today as $p)
+            <a href="{{ route('pjmk.pinjam.detail', $p->peminjaman_id) }}">
+              <li
+                class="flex justify-between gap-x-6 p-3 group hover:bg-gray-100 transition-colors duration-300 cursor-pointer">
+                <div class="flex min-w-0 gap-x-4">
+                  <div class="min-w-0 flex-auto">
+                    <p class="text-lg font-extrabold leading-8 text-cyan-600">{{ $p->peminjaman_ruangkelas }}</p>
+                    <div class="flex gap-x-4">
+                      <p class="text-gray-500 flex items-center gap-x-2 bg-cyan-50 p-1 rounded-md">
+                        <span class="text-lg material-symbols-outlined">event</span>
+                        <span class="text-xs">{{ strftime('%A, %e %B %Y', strtotime($p->peminjaman_tanggal)) }}</span>
+                      </p>
+                      <p class="text-gray-500 flex items-center gap-x-2 bg-cyan-50 p-1 rounded-md">
+                        <span class="text-lg material-symbols-outlined">schedule</span>
+                        <span class="text-xs font-semibold">
+                          {{ substr($p->peminjaman_waktu_mulai, 0, 5) }}
+                          s/d
+                          {{ substr($p->peminjaman_waktu_selesai, 0, 5) }}
+                        </span>
+                      </p>
+                    </div>
+                    <p class="mt-5 text-sm leading-5 text-gray-500 flex gap-x-2">
+                      <span class="material-symbols-outlined">school</span>
+                      {{ $p->peminjaman_matakuliah }}
+                    </p>
+                  </div>
+                </div>
+                <div class="shrink-0">
+                  <span class="flex align-center justify-center items-center gap-x-2 px-4 py-2 rounded-md
+                          @if ($p->peminjaman_status == 'Waiting') ring-gray-500/10 bg-gray-50 text-gray-400
+                          @elseif ($p->peminjaman_status == 'Disetujui') ring-green-600/10 bg-green-50 text-green-700
+                          @elseif ($p->peminjaman_status == 'Berlangsung') ring-yellow-600/10 bg-yellow-50 text-yellow-700
+                          @elseif ($p->peminjaman_status == 'Ditolak') ring-rose-500/10 bg-rose-50 text-rose-600
+                          @endif
+                          ">
+                    <span class="material-symbols-outlined block">
+                      @if ($p->peminjaman_status == 'Waiting') pending
+                      @elseif ($p->peminjaman_status == 'Disetujui') check_circle
+                      @elseif ($p->peminjaman_status == 'Berlangsung') stream
+                      @elseif ($p->peminjaman_status == 'Ditolak') cancel
+                      @endif
+                    </span>
+                    <span class="block text-sm">{{ $p->peminjaman_status }}</span>
+                  </span>
+                </div>
+              </li>
+            </a>
+            @endforeach
+          </ul>
+          @endif
+        </div>
       </div>
 
+      <!-- List Peminjaman -->
       <div class="mt-10 mx-auto max-w-7xl p-6 bg-white shadow-sm rounded-xl">
         <div class="flex justify-between items-center">
-          <h1 class="text-lg font-semibold text-gray-800">Daftar Peminjaman</h1>
+          <h1 class="text-lg font-semibold text-gray-800">Daftar Semua Peminjaman</h1>
           <a class="text-base flex align-center justify-center gap-x-2 py-2 px-3 font-semibold leading-6 text-cyan-500 rounded-md
                 transition-colors duration-150
                 hover:bg-gray-50 hover"
@@ -64,6 +139,13 @@
         </div>
         <!-- Box-wrapper -->
         <div class="w-full flex flex-wrap mt-5">
+          @if (sizeOf($peminjaman) == 0)
+          <p class="text-gray-400 w-full text-center border-[1.5px] border-dashed py-10">
+            Tidak Ada Peminjaman.
+            <a href="{{ route('pjmk.pinjam.create') }}" class="text-cyan-500">Buat</a>
+          </p>
+
+          @else
           <ul role="list" class="w-full flex flex-col divide-y-2 divide-gray-200 gap-4 divide-dotted bg-white p-5 rounded-md">
             @foreach ($peminjaman as $p)
             <a href="{{ route('pjmk.pinjam.detail', $p->peminjaman_id) }}">
@@ -88,7 +170,7 @@
                     </div>
                     <p class="mt-5 text-sm leading-5 text-gray-500 flex gap-x-2">
                       <span class="material-symbols-outlined">school</span>
-                      {{ $p->matakuliah_nama }}
+                      {{ $p->peminjaman_matakuliah }}
                     </p>
                   </div>
                 </div>
@@ -96,12 +178,14 @@
                   <span class="flex align-center justify-center items-center gap-x-2 px-4 py-2 rounded-md
                           @if ($p->peminjaman_status == 'Waiting') ring-gray-500/10 bg-gray-50 text-gray-400
                           @elseif ($p->peminjaman_status == 'Disetujui') ring-green-600/10 bg-green-50 text-green-700
+                          @elseif ($p->peminjaman_status == 'Berlangsung') ring-yellow-600/10 bg-yellow-50 text-yellow-700
                           @elseif ($p->peminjaman_status == 'Ditolak') ring-rose-500/10 bg-rose-50 text-rose-600
                           @endif
                           ">
                     <span class="material-symbols-outlined block">
                       @if ($p->peminjaman_status == 'Waiting') pending
                       @elseif ($p->peminjaman_status == 'Disetujui') check_circle
+                      @elseif ($p->peminjaman_status == 'Berlangsung') stream
                       @elseif ($p->peminjaman_status == 'Ditolak') cancel
                       @endif
                     </span>
@@ -112,6 +196,7 @@
             </a>
             @endforeach
           </ul>
+          @endif
         </div>
       </div>
     </main>
