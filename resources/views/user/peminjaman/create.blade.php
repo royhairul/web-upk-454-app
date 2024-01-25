@@ -16,11 +16,11 @@
   <div class="container max-w-full min-h-full">
     @include('component.nav-pjmk', ['title' => 'Peminjaman', 'user' => $user])
 
-    <div class="p-8 w-full">
+    <div class="p-8 m-8 w-[80%] bg-white">
       <header class="flex gap-x-20 align-center">
         <div>
-          <h2 class="text-2xl font-bold leading-8">Ajukan Peminjaman</h2>
-          <p class="text-base text-gray-500">Buat pengajuan peminjaman ruang kelas</p>
+          <h2 class="text-2xl font-bold leading-8 text-black">Ajukan Peminjaman</h2>
+          <p class="text-sm leading-16 text-gray-400">Buat pengajuan peminjaman ruang kelas</p>
         </div>
       </header>
       <main class="mt-5">
@@ -104,17 +104,13 @@
             -->
 
             <div class="row-span-1 order-first">
-              <label for="matakuliah" class="block text-sm font-medium leading-6 text-gray-900">Pilih Mata Kuliah</label>
+              <label for="matakuliah" class="block text-sm font-medium leading-6 text-gray-900">Mata Kuliah</label>
               <div class="mt-2">
-                <select id="matakuliah" name="matakuliah" autocomplete="matakuliah"
-                  class="block w-2/3 rounded-md border-0 px-3 py-1.5 text-gray-500 text-sm shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-1 focus:ring-inset focus:ring-cyan-600">
-                  <option selected default>Pilih Mata Kuliah...</option>
-                  @foreach($matakuliah as $mk)
-                  <option value="{{$mk->matakuliah_id}}">
-                    {{$mk->matakuliah_nama}}
-                  </option>
-                  @endforeach
-                </select>
+              <input type="text" name="matakuliah" id="matakuliah" autocomplete="given-name"
+                  placeholder="Masukkan Mata Kuliah..."
+                  class="block w-2/3 rounded-md border-0 pl-3 py-1.5 text-gray-900 text-sm shadow-sm ring-1 ring-inset ring-gray-300 
+                      placeholder:text-gray-400 placeholder:text-sm focus:ring-1 focus:ring-inset focus:ring-cyan-600 border-0
+                      @error('matakuliah') ring-rose-500  @enderror">
               </div>
             </div>
 

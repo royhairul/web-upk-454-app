@@ -32,6 +32,14 @@
         </a>
       </header>
       <main class="mt-5">
+
+        @if (sizeOf($peminjaman) == 0)
+          <p class="text-gray-400 w-full text-center border-[1.5px] border-dashed py-10">
+            Tidak Ada Peminjaman.
+            <a href="{{ route('pjmk.pinjam.create') }}" class="text-cyan-500">Buat</a>
+          </p>
+
+        @else
         <ul role="list" class="flex flex-col divide-y-2 divide-gray-200 gap-4 divide-dotted bg-white p-5 rounded-md">
           @foreach ($peminjaman as $p)
           <a href="{{ route('pjmk.pinjam.detail', $p->peminjaman_id) }}">
@@ -55,7 +63,7 @@
                   </div>
                   <p class="mt-5 text-sm leading-5 text-gray-500 flex gap-x-2">
                     <span class="material-symbols-outlined">school</span>
-                    {{ $p->matakuliah_nama }}
+                    {{ $p->peminjaman_matakuliah }}
                   </p>
                 </div>
               </div>
@@ -63,12 +71,14 @@
                   <span class="flex align-center justify-center items-center gap-x-2 px-4 py-2 rounded-md
                   @if ($p->peminjaman_status == 'Waiting') ring-gray-500/10 bg-gray-50 text-gray-400
                   @elseif ($p->peminjaman_status == 'Disetujui') ring-green-600/10 bg-green-50 text-green-700
+                  @elseif ($p->peminjaman_status == 'Berlangsung') ring-yellow-600/10 bg-yellow-50 text-yellow-700
                   @elseif ($p->peminjaman_status == 'Ditolak') ring-rose-500/10 bg-rose-50 text-rose-600
                   @endif
                   ">
                     <span class="material-symbols-outlined block">
                       @if ($p->peminjaman_status == 'Waiting') pending
                       @elseif ($p->peminjaman_status == 'Disetujui') check_circle
+                      @elseif ($p->peminjaman_status == 'Berlangsung') stream
                       @elseif ($p->peminjaman_status == 'Ditolak') cancel
                       @endif
                     </span>
@@ -79,6 +89,7 @@
           </a>
           @endforeach
         </ul>
+        @endif
       </main>
     </div>
   </div>
