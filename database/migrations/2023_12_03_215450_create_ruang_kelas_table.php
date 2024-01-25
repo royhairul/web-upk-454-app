@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('ruangkelas_kapasitas');
             $table->string('ruangkelas_prodi');
             $table->string('ruangkelas_status');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
