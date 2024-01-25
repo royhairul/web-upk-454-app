@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengembalian', function (Blueprint $table) {
-            $table->id();
+        Schema::create('tb_pengembalian', function (Blueprint $table) {
+            $table->id('pengembalian_id');
+            $table->string('pengembalian_pinjam');
+            $table->string('pengembalian_foto_sebelum');
+            $table->string('pengembalian_foto_sesudah');
+            $table->time('pengembalian_waktu');
+            $table->string('pengembalian_admin')->nullable();
+            $table->enum('pengembalian_status', ['Waiting', 'Ditolak', 'Disetujui'])->default('Waiting');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengembalian');
+        Schema::dropIfExists('tb_pengembalian');
     }
 };
