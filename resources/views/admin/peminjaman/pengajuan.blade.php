@@ -8,8 +8,6 @@
   Daftar Pengajuan Peminjaman
 </p>
 
-<<<<<<< HEAD
-=======
 <form action="/admin/pengajuan" method="get" class="mt-10 flex gap-4">
   @csrf
   <input type="text" name="search" id="search"
@@ -21,17 +19,8 @@
       search
     </span>
   </button>
-
-  <!-- <button type="button" id="filterButton"
-    class="flex gap-x-2 justify-center align-center cursor-pointer rounded-md bg-indigo-600 px-3 py-2.5 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-    <span class="material-symbols-rounded">
-      filter_list
-    </span>
-    <span class="text-base">Filter</span>
-  </button> -->
 </form>
 
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
 <!-- Table -->
 <div class="mt-10 relative bg-slate-50 rounded-xl overflow-hidden">
   <div style="background-position: 10px 10px;"
@@ -91,26 +80,8 @@
               {{ substr($peminjaman->peminjaman_waktu_selesai, 0, 5) }}
             </td>
             <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-              {{ $peminjaman->matakuliah_nama }}
+              {{ $peminjaman->peminjaman_matakuliah }}
             </td>
-            <!-- <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-              @php $fasilitas = $peminjaman->peminjaman_fasilitas @endphp
-              <ul class="list-disc">
-                @if($fasilitas[0] == 1) <li>Remote AC</li> @endif
-                @if($fasilitas[1] == 1) <li>Proyektor</li> @endif
-                @if($fasilitas[2] == 1) <li>Stopkontak</li> @endif
-              </ul>
-            </td> -->
-            <!-- <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-              <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset
-              @if ($peminjaman->peminjaman_status == 'Waiting') ring-gray-500/10 bg-gray-50 text-gray-600
-              @elseif ($peminjaman->peminjaman_status == 'Disetujui') ring-green-600/10 bg-green-50 text-green-700
-              @elseif ($peminjaman->peminjaman_status == 'Waiting') ring-gray-500/10 bg-gray-50 text-gray-600
-              @endif
-              ">
-                {{ $peminjaman->peminjaman_status }}
-              </span>
-            </td> -->
             <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
                 <a href="{{ route('admin.pengajuan.verif', $id = $peminjaman->peminjaman_id) }}"
                   class="font-semibold text-cyan-600 leading-2 flex bg-cyan-50 px-2 py-1 justify-center items-center gap-x-2 rounded-md
