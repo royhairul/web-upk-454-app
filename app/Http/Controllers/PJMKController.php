@@ -15,43 +15,55 @@ class PJMKController extends Controller
     public function index() {
         $getUser = Auth::user();
         $peminjaman = Peminjaman::where('peminjaman_pjmk', $getUser->nim)
-            ->join('tb_matakuliah', 'matakuliah_id', 'peminjaman_matakuliah')
-            ->select('tb_peminjaman.*', 'tb_matakuliah.matakuliah_nama')
+            ->select('tb_peminjaman.*')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        setlocale(LC_TIME, 'Indonesian');
+        $hari_ini = strftime('%Y-%m-%d', time());    
+        $peminjaman_today = Peminjaman::where('peminjaman_pjmk', $getUser->nim)
+            ->where('peminjaman_tanggal', $hari_ini)
+            ->select('tb_peminjaman.*')
             ->orderBy('created_at', 'desc')
             ->limit(5)
             ->get();
 
         $user = PJMK::where('pjmk_nim', $getUser->nim)->get()[0];
-        return view('user.dashboard', compact('user', 'peminjaman'));
+        return view('user.dashboard', compact('user', 'peminjaman', 'peminjaman_today'));
     }
 
     public function cari() {
-        setlocale(LC_TIME, 'Indonesian'); // Set locale ke bahasa Indonesia
-          
-        $hari_ini = strftime('%A', time());
+        $getUser = Auth::user();
+        $user = PJMK::where('pjmk_nim', $getUser->nim)->get()[0];
 
-        $ruangkelas_per_hari = Jadwal::where('jadwal_hari',$hari_ini)
-                                ->join('tb_ruangkelas', 'ruangkelas_code', 'jadwal_ruangkelas')
-                                ->select('tb_jadwal.*', 'tb_ruangkelas.*')
-                                ->get();
-
-        return view('user.pencarian', compact('ruangkelas_per_hari'));
-    }
-
-    public function jadwal() {
-        $jadwal_per_hari = [
-            "Senin" => Jadwal::where('jadwal_hari', 'Senin')->get(),
-            "Selasa" => Jadwal::where('jadwal_hari', 'Selasa')->get(),
-            "Rabu" => Jadwal::where('jadwal_hari', 'Rabu')->get(),
-            "Kamis" => Jadwal::where('jadwal_hari', 'Kamis')->get(),
-            "Jumat" => Jadwal::where('jadwal_hari', 'Jumat')->get()
-        ];
-        return view('user.jadwal.index', compact('jadwal_per_hari'));
-    }
-
-    public function createJadwal() {
-        $prodi = Prodi::all();
         $ruangkelas = RuangKelas::all();
-        return view('user.jadwal.create', compact('prodi', 'ruangkelas'));
+
+        $peminjamanPerRuang = [];
+
+        foreach ($ruangkelas as $ruang) {
+            $peminjaman = Peminjaman::where('peminjaman_ruangkelas', $ruang->ruangkelas_code)
+                ->where('peminjaman_tanggal', '>=', now()->format('Y-m-d'))
+                ->join('tb_pjmk', 'pjmk_nim', 'peminjaman_pjmk')
+                ->select('tb_peminjaman.*', 'tb_pjmk.*')
+                ->get()[0];
+    
+            $peminjamanPerRuang[$ruang->ruangkelas_code] = $peminjaman;
+        }
+
+        return view('user.pencarian', compact('user', 'ruangkelas', 'peminjamanPerRuang'));
+    }
+
+    public function history() {
+        $getUser = Auth::user();
+        $user = PJMK::where('pjmk_nim', $getUser->nim)->get()[0];
+
+        $data = Peminjaman::where('peminjaman_pjmk', $getUser->nim)
+                        ->where('peminjaman_status', 'Selesai')
+                        ->select('tb_peminjaman.*')
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+        return view('user.riwayat.riwayat', compact('user', 'data'));
     }
 }
