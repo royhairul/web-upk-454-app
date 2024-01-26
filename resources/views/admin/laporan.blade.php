@@ -40,70 +40,30 @@
       <table class="border-collapse table-auto w-full text-sm">
         <thead>
           <tr>
-<<<<<<< HEAD
-            <th
-              class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-              Kode Ruangan</th>
-            <th
-              class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-              Nama PJMK</th>
-            <th
-              class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-              Kelas</th>
-            <th
-              class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-              Tanggal Pinjam</th>
-            <th
-              class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
-              Mata Kuliah</th>
-          </tr>
-        </thead>
-=======
             <th class="border-b dark:border-slate-600 font-medium p-4 pl-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
               Kode Ruangan
-              <div style="margin-top: 10px;">
-              <input type="text" name="search" id="search"
-                class="rounded-md w-[13ch] border-0 py-1.4 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="">
-              </div>
             </th>
             <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
               Nama PJMK
-              <div style="margin-top: 10px;">
-                <input type="text" name="search" id="search"
-                  class="rounded-md w-[13ch] border-0 py-1.4 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="">
             </th>
             <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
               Kelas
-              <div style="margin-top: 10px;">
-                <input type="text" name="search" id="search"
-                  class="rounded-md w-[13ch] border-0 py-1.4 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="">
             </th>
             <th class="border-b dark:border-slate-600 font-medium p-4 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
               Tanggal Pinjam
-              <div style="margin-top: 10px;">
-                <input type="text" name="search" id="search"
-                  class="rounded-md w-[13ch] border-0 py-1.4 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="">
             </th>
             <th class="border-b dark:border-slate-600 font-medium p-4 pr-8 pt-0 pb-3 text-slate-400 dark:text-slate-200 text-left">
               Mata Kuliah
-              <div style="margin-top: 10px;">
-                <input type="text" name="search" id="search"
-                  class="rounded-md w-[13ch] border-0 py-1.4 pl-3 pr-10 text-base text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="">
             </th>
           </tr>
         </thead>
         
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
         <tbody class="bg-white dark:bg-slate-800">
           @if (sizeOf($data) == 0)
           <tr>
-            <td class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400" colspan="5">
-              Tidak Ada Hasil</td>
+            <td class="border-b border-slate-100 p-4 pr-8 text-slate-500 text-center" colspan="5">
+              Tidak Ada Hasil
+            </td>
           </tr>
           @else
           @foreach ($data as $peminjaman)
@@ -121,7 +81,7 @@
             </td>
             <td
               class="border-b border-slate-100 dark:border-slate-700 p-4 pr-8 text-slate-500 dark:text-slate-400">
-              {{ $peminjaman->matakuliah_nama }}
+              {{ $peminjaman->peminjaman_matakuliah }}
             </td>
           </tr>
           @endforeach
