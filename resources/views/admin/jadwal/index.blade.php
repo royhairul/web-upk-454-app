@@ -16,8 +16,6 @@
     Tambah Jadwal
 </a>
 
-<<<<<<< HEAD
-=======
 <form action="{{ route('search') }}" method="post" class="mt-10 flex gap-4">
   @csrf
   <input type="text" name="search" id="search"
@@ -39,7 +37,6 @@
   </button> -->
 </form>
 
->>>>>>> 39c3a8276b5addcd59b1894d013b7f991c6c9629
 <!-- Table -->
 <div class="mt-10 relative bg-slate-50 rounded-xl overflow-hidden dark:bg-slate-800/25">
   <div style="background-position: 10px 10px;"
