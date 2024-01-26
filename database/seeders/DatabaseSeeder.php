@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             ProdiSeeder::class,
-            MataKuliahSeeder::class,
             RuangKelasSeeder::class,
             RolePermissionSeeder::class,
+            AdminUPKSeeder::class,
         ]);
     }
 }
