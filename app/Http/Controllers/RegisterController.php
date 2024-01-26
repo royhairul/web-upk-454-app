@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Prodi;
 use App\Models\PJMK;
 use App\Models\User;
+use Illuminate\Validation\Rule;
 
 set_time_limit(0);
 
@@ -57,13 +58,13 @@ class RegisterController extends Controller
 
         // Validasi Data PJMK
         $validateDataPJMK = $request->validate([
-            'nim' => ['required', 'numeric'],
+            'nim' => ['required', 'numeric', Rule::unique('tb_pjmk', 'pjmk_nim')],
             'nama' => [
                 'required',
                 'string',
                 'regex:/^[^\d]+$/',
             ],
-            'kelas' => 'required|regex:/^[1-6][A-Z]$/',
+            'kelas' => 'required|regex:/^[1-4][A-Z]$/',
             'prodi' => 'required',
             'phone' => ['required', 'min:12', 'numeric', 'regex:/^(\+62|62|0)8[1-9][0-9]{6,9}$/'],
             'email' => 'required|email',
