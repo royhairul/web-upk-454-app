@@ -29,7 +29,7 @@ class LoginController extends Controller
                 return redirect()->intended(route('pjmk.index'));
             }
             
-            return redirect()->intended(route('admin.laporan'));
+            return redirect()->intended(route('admin.dashboard'));
         }
 
         return back()->withErrors([
