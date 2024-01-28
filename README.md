@@ -1,3 +1,4 @@
+![Logo UPK Poliwangi](./public/logo-UPK.png)
 ##  UPK 454 App
 ---
  Aplikasi peminjaman ruang kelas pada Gedung 454, Politeknik Negeri Banyuwangi. Project ini dibuat dengan tujuan untuk memudahkan UPK dalam pencatatan peminjaman ruang kelas pada Gedung 454. Aplikasi ini dibuat berbasis website dan *mobile*.
